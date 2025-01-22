@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Supplier } from './entities/supplier.entity';
@@ -22,10 +22,14 @@ export class SupplierService {
   }
 
   async findOne(id: number): Promise<Supplier> {
-    return this.supplierRepository.findOne({
+    const supplier = await this.supplierRepository.findOne({
       where: { id },
       relations: ['products'],
     });
+    if (!supplier) {
+      throw new NotFoundException(`Supplier with ID ${id} not found`);
+    }
+    return supplier;
   }
 
   async update(
