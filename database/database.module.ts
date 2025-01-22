@@ -23,9 +23,9 @@ import { ServiceRequest } from 'src/request/entities/service-request.entity';
         type: 'mysql',
         host: configService.getOrThrow('DB_HOST'),
         port: +configService.getOrThrow('DB_PORT'), // The `+` ensures the value is converted to a number
-        username: configService.getOrThrow('DB_USER'),
+        username: configService.getOrThrow('DB_USERNAME'),
         password: configService.getOrThrow('DB_PASSWORD'),
-        database: configService.getOrThrow('DB_NAME'),
+        database: configService.getOrThrow('DB_DATABASE'),
         entities: [
           Customer,
           Product,
